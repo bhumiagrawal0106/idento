@@ -1,0 +1,28 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>All Users</h2>
+<table class="users">
+  <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Actions</th></tr></thead>
+  <tbody>
+    {% for u in users %}
+    <tr>
+      <td>{{ u.id }}</td>
+      <td>{{ u.name }}</td>
+      <td>{{ u.email }}</td>
+      <td>{{ u.role }}</td>
+      <td>
+        {% if u.role != 'admin' %}
+        <form method="POST" action="{{ url_for('delete_user', user_id=u.id) }}" style="display:inline">
+          <button class="btn small danger">Delete</button>
+        </form>
+        {% else %}
+          <em>protected</em>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+

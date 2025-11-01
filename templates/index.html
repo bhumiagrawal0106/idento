@@ -1,0 +1,11 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div class="hero">
+  <h1>Welcome to Idento</h1>
+  <p>Modern, colorful, role-based web app — login or sign up to get started.</p>
+  <a class="btn" href="{{ url_for('signup') }}">Sign Up (Student)</a>
+  <a class="btn hollow" href="{{ url_for('login') }}">Login</a>
+</div>
+{% endblock %}
+

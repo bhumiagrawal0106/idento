@@ -1,0 +1,11 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<p>Create users, view all users, and manage the system.</p>
+<ul>
+  <li><a href="{{ url_for('create_user') }}">Create User</a></li>
+  <li><a href="{{ url_for('users_list') }}">View Users</a></li>
+</ul>
+{% endblock %}
+

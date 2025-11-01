@@ -1,0 +1,70 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>idento - {{ title if title else 'Welcome' }}</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}">idento</a>
+    <nav>
+      <a href="{{ url_for('portfolio') }}">Portfolio</a>
+      {% if current_user.is_authenticated %}
+        {% if current_user.role == 'admin' %}
+          <a href="{{ url_for('admin_dashboard') }}">Admin</a>
+        {% else %}
+          <a href="{{ url_for('student_welcome') }}">Welcome</a>
+        {% endif %}
+        <a href="{{ url_for('change_password') }}">Change Password</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('signup') }}">Sign Up</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container">
+          {% for category, msg in messages %}
+            <div class="flash {{ category }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </div>
+
+  <!-- Cute robot chat button -->
+  <div id="robot" title="Chat with Idento">
+    <div class="eye"></div>
+    <div class="eye right"></div>
+  </div>
+
+  <!-- Chat modal -->
+  <div id="chatModal" class="chat-modal">
+    <div class="chat-header">Idento — AI Assistant <span id="closeChat">✕</span></div>
+    <div class="chat-body" id="chatBody">
+      <div class="bot-msg">Hi! I am ai assistant Idento, how may I help you?</div>
+    </div>
+    <div class="chat-footer">
+      <input id="chatInput" placeholder="Type your question..." />
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <!-- customer care widget footer -->
+  <div class="customer-care">
+    <div>Customer Care: +91 8502946105 | bhumi01062005@gmail.com</div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+</body>
+</html>
+
